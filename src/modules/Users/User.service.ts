@@ -5,55 +5,62 @@ import { Prisma, type User } from "../../generated/prisma/client"
 
 
 
-const createUserService = async(payload:Prisma.UserCreateInput): Promise <User> =>{
-     const user = await prisma.user.create({
-         data:payload
-     })
+const createUserService = async (payload: Prisma.UserCreateInput): Promise<User> => {
+    const user = await prisma.user.create({
+        data: payload
+    })
 
-     return user
+    return user
 }
 
 
-const getAllUserService = async()=>{
-     const result = await prisma.user.findMany({
-         select:{
-              id: true,
+const getAllUserService = async () => {
+    const result = await prisma.user.findMany({
+        select: {
+            id: true,
             name: true,
+            email: true,
+            role: true,
+            phone: true,
+            picture: true,
+            createdAt: true,
+            updatedAt: true,
+            status: true,
+            posts: true
+        }
+    });
 
-         }
-     });
-
-     return result;
+    return result;
 
 }
 
 
-const getSingleUserService= async(id:number)=>{
-      const result = await prisma.user.findUnique({
-         where:{
+const getSingleUserService = async (id: number) => {
+    const result = await prisma.user.findUnique({
+        where: {
             id
-         }
-      })
+        }
+    })
 
-      return result
+    return result
 }
 
-const update_user = async(id:number,payload:Prisma.UserCreateInput)=>{
-      const updated_user = await prisma.user.update({
-          where:{id},
-          data:payload
-      })
+const update_user = async (id: number, payload: Prisma.UserCreateInput) => {
+    const updated_user = await prisma.user.update({
+        where: { id },
+        data: payload
+    })
 
-      return updated_user
+    return updated_user
 }
 
 
-const delete_User = async(id:number)=>{
-     const deleteUser = await prisma.user.delete({
-         where:{id}
-     })
+const delete_User = async (id: number) => {
+    const deleteUser = await prisma.user.delete({
+        where: { id }
+    })
 
-     return deleteUser
+    return deleteUser
 }
 
 
