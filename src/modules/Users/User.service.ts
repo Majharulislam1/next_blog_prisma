@@ -16,18 +16,10 @@ const createUserService = async (payload: Prisma.UserCreateInput): Promise<User>
 
 const getAllUserService = async () => {
     const result = await prisma.user.findMany({
-        select: {
-            id: true,
-            name: true,
-            email: true,
-            role: true,
-            phone: true,
-            picture: true,
-            createdAt: true,
-            updatedAt: true,
-            status: true,
-            posts: true
-        }
+         include:{
+             posts:true
+         }
+
     });
 
     return result;

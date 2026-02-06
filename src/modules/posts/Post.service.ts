@@ -24,14 +24,39 @@ const createPostService = async(payload:Prisma.PostCreateInput):Promise<Post>=>{
       return createPost;
 }
 
+ const createMultiplePostService = async (
+  payload: Prisma.PostCreateManyInput[]  
+): Promise<Prisma.BatchPayload> => {
+  const result = await prisma.post.createMany({
+    data: payload,   
+  });
 
-const getAllPosts = async ()=>{
-     const result = await prisma.post.findMany();
-     return result
+  return result;  
 }
+
+
+
+
+const getAllPosts = async ({page,limit}:{page:number,limit:number})=>{
+      
+      const skip = (page - 1) * limit;
+
+     const result = await prisma.post.findMany(
+         {
+             skip,
+             take:limit
+         }
+     );
+     return result
+
+
+}
+
+
 
 
 export const PostService = {
      createPostService,
-     getAllPosts
+     getAllPosts ,
+     createMultiplePostService
 }
