@@ -70,6 +70,7 @@ const getAllPosts = async ({ page = 1, limit = 10, search = '', isFeatured, tags
             }
         }
     );
+
     const total = await prisma.post.count({ where })
     return {
         data: result,
@@ -82,6 +83,18 @@ const getAllPosts = async ({ page = 1, limit = 10, search = '', isFeatured, tags
     };
 }
 
+
+const getSingleUser = async (id:number)=>{
+   const result = await prisma.post.findUnique({
+  where: {
+    id: id
+  }
+});
+   
+   return result;
+      
+}
+
 // aggreates 
 const getBlogStat = async () => {
 }
@@ -89,6 +102,7 @@ const getBlogStat = async () => {
 export const PostService = {
     createPostService,
     getAllPosts,
-    createMultiplePostService
+    createMultiplePostService ,
+    getSingleUser
 }
 

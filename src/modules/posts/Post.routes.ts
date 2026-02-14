@@ -8,3 +8,4 @@ export const postRouter = Router();
 postRouter.post("/create",PostControllers.create_post);
 postRouter.get("/",PostControllers.getAllPosts);
 postRouter.post("/createMulty",PostControllers.createMultiplePostServices);
+postRouter.get("/:id",PostControllers.getSingleUser);
